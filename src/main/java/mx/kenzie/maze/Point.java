@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+/**
+ * A 2D lattice point, representing either a wall cell or a path cell.
+ * */
 public record Point(int x, int y) implements Path {
 
     public boolean isNextTo(Point point) {

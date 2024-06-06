@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * An unmodifiable path of points.
+ * */
 public record FixedPath(Point... points) implements Path {
 
     @Override

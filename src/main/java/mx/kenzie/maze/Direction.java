@@ -2,6 +2,9 @@ package mx.kenzie.maze;
 
 import mx.kenzie.maze.random.Seed;
 
+/**
+ * A cardinal direction in two dimensions. May be applied to a {@link Point} to move the point in that direction.
+ * */
 public enum Direction implements Transformation {
     NORTH(0, -1), EAST(1, 0), SOUTH(0, 1), WEST(-1, 0);
     private static final Direction[] values = values();

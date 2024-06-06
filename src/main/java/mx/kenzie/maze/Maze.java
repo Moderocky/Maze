@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * A two-dimensional maze.
+ * */
 public record Maze(byte[][] layout, int length, int width) implements Printed, Path {
 
     public Maze(int length, int width) {
