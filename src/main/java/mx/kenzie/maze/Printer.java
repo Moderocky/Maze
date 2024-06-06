@@ -6,13 +6,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public record Printer(Printed source, BufferedImage image, int startX, int startY) {
+public record Printer(Maze source, BufferedImage image, int startX, int startY) {
 
-    public Printer(Printed source) {
+    public Printer(Maze source) {
         this(source, new BufferedImage(source.width(), source.length(), BufferedImage.TYPE_INT_ARGB));
     }
 
-    public Printer(Printed source, BufferedImage image) {
+    public Printer(Maze source, BufferedImage image) {
         this(source, image, 0, 0);
     }
 

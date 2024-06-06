@@ -28,25 +28,4 @@ public enum State implements Printed {
             default -> stream.print('-');
         }
     }
-
-    @Override
-    public int length() {
-        return 0;
-    }
-
-    @Override
-    public int width() {
-        return 0;
-    }
-
-    @Override
-    public State get(Point point) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Iterator<Point> iterator() {
-        return Collections.emptyIterator();
-    }
-
 }
