@@ -20,6 +20,9 @@ public interface Seed {
         return of(new Random());
     }
 
+    /**
+     * @return A random integer in the range [0, <i>range</i>[.
+     * */
     int random(int x, int y, int range);
 
     default int random(int range) {

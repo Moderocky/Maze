@@ -31,6 +31,10 @@ public interface Generator {
         return correct;
     }
 
+    /**
+     * @return A random direction to move in from the given point that is within the bounds of the maze, or null if no such direction exists.
+     * Moving two steps in this direction will be within the bounds of the maze, but the endpoint may be a wall.
+     * */
     default Direction nextPoint(Point current) {
         final Direction[] directions = Direction.randomOrder(this.seed());
         for (Direction direction : directions) {
@@ -88,6 +92,9 @@ public interface Generator {
         return path;
     }
 
+    /**
+     * Draws and cuts a path between two {@link Point}s by making two random paths and then joining them with {@link Generator#join(Point, Point)}. This modifies the maze.
+     * */
     default Path drawPath(Point from, Point to) {
         final Point end = to.correct();
         this.drawDot(to);
@@ -99,6 +106,10 @@ public interface Generator {
         return path.union(reverse).union(this.join(end, to));
     }
 
+    /**
+     * Draws a path using a random walk which starts at the given {@link Point} and ends either when
+     * it hits a wall or when it hits an existing part of the maze. This does not modify the maze.
+     * */
     default Path drawPath(Point from) {
         final Point start = from.correct();
         this.maze().set(start, State.WALL);
@@ -118,6 +129,10 @@ public interface Generator {
         return path;
     }
 
+    /**
+     * Draws and cuts a random path into the {@link Maze}. This does not modify the maze.
+     * @see #drawPath(Point)
+     * */
     default Path cutPath(Point from) {
         final Path path = this.drawPath(from);
         path.cut(this.maze());

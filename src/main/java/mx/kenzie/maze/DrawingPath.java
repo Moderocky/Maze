@@ -3,6 +3,9 @@ package mx.kenzie.maze;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * A modifiable path of points.
+ * */
 public class DrawingPath extends LinkedList<Point> implements Path {
 
     public DrawingPath() {
