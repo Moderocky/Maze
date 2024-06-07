@@ -1,8 +1,6 @@
 package mx.kenzie.maze;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * A 2D lattice point, representing either a wall cell or a path cell.
@@ -75,4 +73,16 @@ public record Point(int x, int y) implements Path {
         return Collections.singleton(this).iterator();
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
