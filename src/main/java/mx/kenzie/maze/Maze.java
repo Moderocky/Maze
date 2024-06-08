@@ -1,5 +1,7 @@
 package mx.kenzie.maze;
 
+import mx.kenzie.maze.output.Printed;
+
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;

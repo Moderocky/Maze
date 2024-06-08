@@ -1,8 +1,8 @@
 package mx.kenzie.maze;
 
+import mx.kenzie.maze.output.Printed;
+
 import java.io.PrintStream;
-import java.util.Collections;
-import java.util.Iterator;
 
 public enum State implements Printed {
     WALL,

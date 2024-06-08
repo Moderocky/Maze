@@ -1,4 +1,4 @@
-package mx.kenzie.maze;
+package mx.kenzie.maze.output;
 
 import java.io.PrintStream;
 

@@ -2,6 +2,8 @@ package mx.kenzie.maze;
 
 import mx.kenzie.maze.generator.Generator;
 import mx.kenzie.maze.generator.SimpleGenerator;
+import mx.kenzie.maze.output.Printer;
+import mx.kenzie.maze.output.SimplePrinter;
 import mx.kenzie.maze.random.Seed;
 
 import java.io.File;
@@ -14,7 +16,7 @@ public class Example4PathMaze {
         final Maze maze = generateMaze4(127, 127, Seed.of());
         final File file = new File("maze.png");
         try (FileOutputStream stream = new FileOutputStream(file)) {
-            final Printer printer = Printer.bordered(maze);
+            final Printer printer = SimplePrinter.bordered(maze);
             printer.draw();
             printer.print(stream);
         }

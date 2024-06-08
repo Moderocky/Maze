@@ -58,7 +58,7 @@ public record BacktrackingGenerator(Maze maze, Seed seed) implements Generator {
             }
         }
 
-        return getPathTo(new Point(maze.length() - 1, maze.width() - 1), discoveryMap);
+        return this.getPathTo(new Point(maze.length() - 1, maze.width() - 1), discoveryMap);
     }
 
     private DrawingPath getPathTo(final Point target, final Map<Point, Point> discoveryMap) {
