@@ -26,7 +26,7 @@ public class ExampleScaledMaze {
         start.cut(maze, State.START);
         end.cut(maze, State.END);
         maze.print(System.out);
-        final Printer printer = new ScaledPrinter(maze, 1, 3);
+        final Printer printer = new ScaledPrinter(maze, 2, 3);
         printer.draw();
         final File file = new File("maze.png");
         try (OutputStream stream = new FileOutputStream(file)) {

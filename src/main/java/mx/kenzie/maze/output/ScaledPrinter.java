@@ -2,8 +2,8 @@ package mx.kenzie.maze.output;
 
 import mx.kenzie.maze.Maze;
 import mx.kenzie.maze.Point;
+import mx.kenzie.maze.State;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ScaledPrinter extends AbstractPrinter {
@@ -45,55 +45,32 @@ public class ScaledPrinter extends AbstractPrinter {
 
     @Override
     public void draw() {
-        final Graphics2D graphics = image.createGraphics();
-        graphics.setColor(Color.GREEN);
-        graphics.fillRect(startY, startX,
-            scaleSide(source.width(), pathFactor, wallFactor) + startY,
-            scaleSide(source.length(), pathFactor, wallFactor) + startX);
         for (Point point : source) {
             final int x = scalePoint(point.y(), pathFactor, wallFactor);
             final int y = scalePoint(point.x(), pathFactor, wallFactor);
-            switch (source.get(point)) {
-                case WALL:
-                    if (point.x() % 2 == 1 && point.y() % 2 == 1) {
-                        graphics.setColor(this.getColor(Mode.WALL));
-                        graphics.fillRect(x, y, wallFactor, wallFactor);
-                    } else switch (point.y() % 2) {
-                        case 0 -> {
-                            graphics.setColor(this.getColor(Mode.WALL_HORIZONTAL));
-                            graphics.fillRect(x, y, pathFactor, wallFactor);
-                        }
-                        case 1 -> {
-                            graphics.setColor(this.getColor(Mode.WALL_VERTICAL));
-                            graphics.fillRect(x, y, wallFactor, pathFactor);
-                        }
-                    }
-                    continue;
-                case START:
-                    graphics.setColor(this.getColor(Mode.PATH_START));
-                    break;
-                case END:
-                    graphics.setColor(this.getColor(Mode.PATH_END));
-                    break;
-                case CORRECT:
-                    graphics.setColor(this.getColor(Mode.PATH_CORRECT));
-                    break;
-                case INTERSECTION:
-                    graphics.setColor(this.getColor(Mode.PATH_INTERSECTION));
-                    break;
-                case EMPTY:
-                    graphics.setColor(this.getColor(Mode.PATH_EMPTY));
-                    break;
-                case null, default:
-                    continue;
+            final State state = source.get(point);
+            if (state == State.WALL) {
+                if (point.x() % 2 == 1 && point.y() % 2 == 1) this.draw(x, y, wallFactor, wallFactor, Mode.WALL);
+                else switch (point.y() % 2) {
+                    case 0 -> this.draw(x, y, pathFactor, wallFactor, Mode.WALL_HORIZONTAL);
+                    case 1 -> this.draw(x, y, wallFactor, pathFactor, Mode.WALL_VERTICAL);
+                }
+                continue;
             }
-            if (point.x() % 2 == 0 && point.y() % 2 == 0) graphics.fillRect(x, y, pathFactor, pathFactor);
+            final Mode mode = switch (state) {
+                case START -> Mode.PATH_START;
+                case END -> Mode.PATH_END;
+                case CORRECT -> Mode.PATH_CORRECT;
+                case INTERSECTION -> Mode.PATH_INTERSECTION;
+                case null, default -> Mode.PATH_EMPTY;
+            };
+            if (point.x() % 2 == 0 && point.y() % 2 == 0) this.draw(x, y, pathFactor, pathFactor, mode);
             else switch (point.x() % 2) {
-                case 1 -> graphics.fillRect(x, y, pathFactor, wallFactor);
-                case 0 -> graphics.fillRect(x, y, wallFactor, pathFactor);
+                case 1 -> this.draw(x, y, pathFactor, wallFactor, mode);
+                case 0 -> this.draw(x, y, wallFactor, pathFactor, mode);
             }
         }
-        graphics.dispose();
+        this.finish();
     }
 
 }

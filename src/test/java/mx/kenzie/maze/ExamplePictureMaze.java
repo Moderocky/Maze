@@ -14,7 +14,7 @@ import java.io.OutputStream;
 public class ExamplePictureMaze {
 
     public static void main(String... args) throws IOException {
-        final int length = 19, width = 45;
+        final int length = 21, width = 21;
         final Maze maze = new Maze(length, width);
         final Generator generator = new SimpleGenerator(maze, Seed.of());
         final Point start, end;

@@ -26,9 +26,6 @@ public class SimplePrinter extends AbstractPrinter {
 
     @Override
     public void draw() {
-        final Graphics2D graphics = image.createGraphics();
-        Color color = Color.WHITE;
-        graphics.setColor(color);
         for (Point point : source) {
             final int y = point.x() + startX, x = point.y() + startY;
             final Mode mode = switch (source.get(point)) {
@@ -40,11 +37,9 @@ public class SimplePrinter extends AbstractPrinter {
                 case END -> Mode.PATH_END;
                 case null -> Mode.WALL_OUTSIDE;
             };
-            final Color ours = this.getColor(mode);
-            if (color != ours) graphics.setColor(color = ours);
-            graphics.drawLine(x, y, x, y);
+            this.draw(x, y, 1, 1, mode);
         }
-        graphics.dispose();
+        this.finish();
     }
 
 }

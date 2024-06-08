@@ -15,6 +15,8 @@ public abstract class AbstractPrinter implements Printer {
     protected final BufferedImage image;
     protected final int startX;
     protected final int startY;
+    protected transient Graphics2D graphics;
+    private transient Mode mode;
 
     public AbstractPrinter(Maze source, BufferedImage image, int startX, int startY) {
         this.source = source;
@@ -30,6 +32,20 @@ public abstract class AbstractPrinter implements Printer {
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
         graphics.dispose();
         return image;
+    }
+
+    @Override
+    public void finish() {
+        if (graphics == null) return;
+        this.graphics.dispose();
+        this.graphics = null;
+    }
+
+    @Override
+    public void draw(int x, int y, int width, int height, Mode mode) {
+        if (graphics == null) graphics = image.createGraphics();
+        if (mode != this.mode) graphics.setColor(this.getColor(this.mode = mode));
+        this.graphics.fillRect(x, y, width, height);
     }
 
     @Override
